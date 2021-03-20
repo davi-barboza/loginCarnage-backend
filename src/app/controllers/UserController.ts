@@ -2,12 +2,14 @@ import { Request, Response } from "express";
 import { getCustomRepository } from "typeorm";
 import { UsersRepository } from "../repositories/UsersRepository";
 import * as yup from 'yup';
-import { AppError } from "../errors/AppError";
+import { AppError } from "../../errors/AppError";
+import jwt from 'jsonwebtoken';
+import authConfig from '../../config/auth.json';
 
 class UserController 
 {
     async create(request: Request, response: Response){
-        const {email,password } = request.body;
+        const {email, password } = request.body;
 
         const schema = yup.object().shape({
           email: yup.string().email().required(),
@@ -36,7 +38,16 @@ class UserController
 
         await usersRepository.save(user);
 
-        return response.status(201).json(user);
+        const generateToken = function generateToken(params = {}) {
+            return jwt.sign(params, authConfig.secret, {
+                expiresIn: 86400,
+            });
+        }
+
+        return response.json({
+            user,
+            token: generateToken({ id: user.id }),
+        });
     }
 
     async show(request: Request, response: Response){
