@@ -1,0 +1,8 @@
+{
+  "host": "account.smtp.host",
+  "port": "account.smtp.port",
+  "secure": "account.smtp.secure",
+  "user": "account.user", 
+  "pass": "account.pass"
+
+}

@@ -11,9 +11,13 @@ const authController = new AuthController();
 const projectController = new ProjectController();
 
 router.post("/users", userController.create);
+router.get("/users", userController.show);
 
 router.post("/auth", authController.authenticate);
+router.post("/forgot_password", authController.forgotPassword);
+router.post("/reset_password", authController.resetPassword);
 
 router.get("/projects", authMiddleware, projectController.index);
+
 
 export { router };
