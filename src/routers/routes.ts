@@ -10,14 +10,14 @@ const userController = new UserController();
 const authController = new AuthController();
 const projectController = new ProjectController();
 
-router.post("/users", userController.create);
-router.get("/users", userController.show);
+router.post("/api/users", userController.create);
+router.get("/api/users", userController.show);
 
-router.post("/auth", authController.authenticate);
-router.post("/forgot_password", authController.forgotPassword);
-router.post("/reset_password", authController.resetPassword);
+router.post("/api/auth", authController.authenticate);
+router.post("/api/forgot_password", authController.forgotPassword);
+router.post("/api/reset_password", authController.resetPassword);
 
-router.get("/projects", authMiddleware, projectController.index);
+router.get("/api/projects", authMiddleware, projectController.homeCarnage);
 
 
 export { router };

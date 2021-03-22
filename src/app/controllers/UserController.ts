@@ -29,7 +29,7 @@ class UserController
         });
 
         if (userAlreadyExists) {
-            throw new AppError("E-mail já cadastrado");
+            throw new AppError("E-mail already exists");
         }
 
         const user = usersRepository.create({
@@ -44,7 +44,7 @@ class UserController
             });
         }
 
-        return response.json({
+        return response.status(200).json({
             user,
             token: generateToken({ id: user.id }),
         });
